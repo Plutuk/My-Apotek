@@ -44,6 +44,8 @@
             <div class="card p-3 h-100 border-warning">
                 <h5 class="text-warning fw-bold">📜 ALUR 2: CLINICAL RULE ENGINE (PASIEN & DOKTER)</h5>
                 <div class="row g-2">
+                    <div class="col-md-6"><label class="small fw-bold">Nama Pasien</label><input type="text" id="a2_nama_p" class="form-control" value="Budianto"></div>
+                    <div class="col-md-6"><label class="small fw-bold">NIK Pasien</label><input type="text" id="a2_nik" class="form-control" value="1298219"></div>
                     <div class="col-md-6"><label class="small fw-bold">Diagnosa Dokter</label>
                         <select id="a2_diag" class="form-select"><option value="diabetes">Diabetes Melitus</option><option value="hipertensi">Hipertensi</option><option value="infeksi">Infeksi Bakteri</option></select>
                     </div>
@@ -79,7 +81,6 @@
 </div>
 
 <script>
-    // RULE ENGINE KLINIS
     function runClinicalAudit() {
         const diag = document.getElementById('a2_diag').value;
         const obat = document.getElementById('a2_obat').value.toLowerCase();
@@ -88,7 +89,6 @@
         const food = document.getElementById('a2_food').value.toLowerCase();
         const res = document.getElementById('res_klinis');
 
-        // Rule 1: Diagnosa Mismatch
         const mapping = {"diabetes":"metformin", "hipertensi":"amlodipine", "infeksi":"amoxicillin"};
         if (!obat.includes(mapping[diag])) {
             res.innerHTML = "❌ BERBAHAYA: Obat tidak sesuai dengan diagnosa dokter!";
@@ -96,14 +96,12 @@
             return;
         }
 
-        // Rule 2: Overdosis BB (Clark's Rule Sim)
         if (dosis > (bb * 15)) {
             res.innerHTML = "❌ BERBAHAYA: Dosis melebihi batas aman berat badan!";
             res.className = "result-box bg-danger text-white";
             return;
         }
 
-        // Rule 3: Food Interaction (DDI/DFI)
         if (food.includes("alkohol") && obat.includes("metformin")) {
             res.innerHTML = "❌ BERBAHAYA: Interaksi Metformin + Alkohol (Risiko Asidosis Laktat)!";
             res.className = "result-box bg-danger text-white";
@@ -114,7 +112,6 @@
         res.className = "result-box bg-success text-white";
     }
 
-    // AUDIT STOK
     function runAudit() {
         const teori = 500;
         const fisik = parseFloat(document.getElementById('a3_fisik').value) || 0;
@@ -131,21 +128,20 @@
         }
     }
 
-    // PDF GENERATOR
     function generateFinalReport() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         
-        // Data Perhitungan
         const harga = parseFloat(document.getElementById('a1_harga').value);
-        const qtyJual = 10; // Simulasi
+        const qtyJual = 10; 
         const total = (harga * 1.3) * qtyJual;
         const hpp = harga * qtyJual;
         const metode = document.getElementById('a2_metode').value;
+        const namaPasien = document.getElementById('a2_nama_p').value;
+        const nikPasien = document.getElementById('a2_nik').value;
 
         doc.setFontSize(16); doc.text("LAPORAN FINAL OPERASIONAL APOTEK 2026", 105, 15, { align: "center" });
 
-        // 1. Keuangan
         doc.autoTable({
             startY: 25, head: [['1. Laporan Keuangan', 'Nilai Riil']],
             body: [
@@ -156,7 +152,6 @@
             ]
         });
 
-        // 2. Barang
         const fisik = parseFloat(document.getElementById('a3_fisik').value) || 0;
         doc.autoTable({
             startY: doc.lastAutoTable.finalY + 10, head: [['2. Laporan Barang', 'Detail']],
@@ -169,10 +164,10 @@
             ]
         });
 
-        // 3. Klinis
         doc.autoTable({
             startY: doc.lastAutoTable.finalY + 10, head: [['3. Laporan Klinis', 'Analisis']],
             body: [
+                ['Nama Pasien / NIK', `${namaPasien} / ${nikPasien}`],
                 ['Interaksi Obat', document.getElementById('res_klinis').innerText],
                 ['Dosis BB/Usia', "Tervalidasi (Clark's Rule)"],
                 ['Compliance Alert', "Terdeteksi: " + document.getElementById('a2_food').value]
