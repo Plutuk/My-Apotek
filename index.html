@@ -2,35 +2,49 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Generator Barcode SKU My-Apotek</title>
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <title>My-Apotek QR Link Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: #f4f7f6; }
-        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); display: inline-block; }
-        input { padding: 10px; width: 250px; border: 1px solid #ccc; border-radius: 5px; }
-        button { padding: 10px 20px; background: #28a745; color: white; border: none; cursor: pointer; border-radius: 5px; }
+        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #eef2f7; padding: 40px; }
+        .container { background: white; padding: 30px; border-radius: 20px; display: inline-block; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        #qrcode { margin: 20px auto; padding: 10px; background: white; }
+        input { padding: 12px; width: 300px; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 10px; }
+        button { padding: 12px 25px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .hint { color: #666; font-size: 0.9em; margin-top: 15px; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>📦 Label SKU Obat</h2>
-        <p>Ketik No Batch & klik Generate untuk discan di Java</p>
-        <input type="text" id="skuInput" value="BATCH-2026-01">
-        <button onclick="generate()">Generate Barcode</button>
-        <br><br>
-        <svg id="barcode"></svg>
-    </div>
 
-    <script>
-        function generate() {
-            const val = document.getElementById('skuInput').value;
-            JsBarcode("#barcode", val, {
-                format: "CODE128",
-                displayValue: true,
-                fontSize: 20
-            });
-        }
-        window.onload = generate;
-    </script>
+<div class="container">
+    <h2 style="color: #2c3e50;">🔗 Link to Web System</h2>
+    <p>Masukkan URL Web Anda (Contoh: IP Address Laptop Anda)</p>
+    
+    <input type="text" id="urlInput" value="http://192.168.1.10/index.html">
+    <br>
+    <button onclick="generateQR()">Update QR Code</button>
+    
+    <div id="qrcode"></div>
+    
+    <div class="hint">
+        Scan QR di atas menggunakan HP untuk masuk ke sistem Web.<br>
+        <strong>Pastikan HP dan Laptop di WiFi yang sama!</strong>
+    </div>
+</div>
+
+<script>
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+        width: 200,
+        height: 200
+    });
+
+    function generateQR() {
+        var url = document.getElementById("urlInput").value;
+        qrcode.makeCode(url);
+    }
+    
+    // Generate otomatis saat dibuka
+    generateQR();
+</script>
+
 </body>
 </html>
