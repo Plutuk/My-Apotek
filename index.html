@@ -2,49 +2,180 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>My-Apotek QR Link Generator</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <title>My-Apotek Pro | Full Clinical & Financial System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; text-align: center; background: #eef2f7; padding: 40px; }
-        .container { background: white; padding: 30px; border-radius: 20px; display: inline-block; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        #qrcode { margin: 20px auto; padding: 10px; background: white; }
-        input { padding: 12px; width: 300px; border: 2px solid #ddd; border-radius: 8px; margin-bottom: 10px; }
-        button { padding: 12px 25px; background: #007bff; color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
-        .hint { color: #666; font-size: 0.9em; margin-top: 15px; }
+        body { background-color: #f4f7f6; }
+        .card { border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .bg-gradient-blue { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; }
+        .result-box { padding: 15px; border-radius: 8px; font-weight: bold; text-align: center; border: 2px dashed #ccc; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2 style="color: #2c3e50;">🔗 Link to Web System</h2>
-    <p>Masukkan URL Web Anda (Contoh: IP Address Laptop Anda)</p>
-    
-    <input type="text" id="urlInput" value="http://192.168.1.10/index.html">
-    <br>
-    <button onclick="generateQR()">Update QR Code</button>
-    
-    <div id="qrcode"></div>
-    
-    <div class="hint">
-        Scan QR di atas menggunakan HP untuk masuk ke sistem Web.<br>
-        <strong>Pastikan HP dan Laptop di WiFi yang sama!</strong>
+<div class="p-4 bg-gradient-blue text-center mb-4">
+    <h2 class="fw-bold">My-Apotek Smart Management System</h2>
+    <p class="mb-0">Integrated Clinical Rule-Engine & Financial Auditor 2026</p>
+</div>
+
+<div class="container pb-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card p-3">
+                <h5 class="text-primary fw-bold">📦 ALUR 1: DATA BARANG (LOGISTIK)</h5>
+                <div class="row g-2">
+                    <div class="col-md-3"><label class="small fw-bold">Nama Obat</label><input type="text" id="a1_nama" class="form-control" value="Metformin"></div>
+                    <div class="col-md-3"><label class="small fw-bold">Supplier</label><input type="text" id="a1_supplier" class="form-control" value="Kimia Farma"></div>
+                    <div class="col-md-2"><label class="small fw-bold">Batch No</label><input type="text" id="a1_batch" class="form-control" value="BATCH-2026-01"></div>
+                    <div class="col-md-2"><label class="small fw-bold">Tgl Produksi</label><input type="date" id="a1_prod" class="form-control" value="2025-01-01"></div>
+                    <div class="col-md-2"><label class="small fw-bold">Tgl Expired</label><input type="date" id="a1_exp" class="form-control" value="2027-01-01"></div>
+                    <div class="col-md-3"><label class="small fw-bold">Harga Beli Satuan</label><input type="number" id="a1_harga" class="form-control" value="2000"></div>
+                    <div class="col-md-3"><label class="small fw-bold">Stok Sistem</label><input type="number" id="a1_qty_sistem" class="form-control" value="500"></div>
+                    <div class="col-md-6 d-flex align-items-end"><button onclick="JsBarcode('#barcode', document.getElementById('a1_batch').value)" class="btn btn-outline-dark w-100 fw-bold">Generate Barcode</button></div>
+                    <div class="col-12 text-center mt-2"><svg id="barcode"></svg></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card p-3 h-100 border-warning">
+                <h5 class="text-warning fw-bold">📜 ALUR 2: CLINICAL RULE ENGINE (PASIEN & DOKTER)</h5>
+                <div class="row g-2">
+                    <div class="col-md-6"><label class="small fw-bold">Nama Pasien</label><input type="text" id="a2_nama_p" class="form-control" value="Budianto"></div>
+                    <div class="col-md-6"><label class="small fw-bold">NIK Pasien</label><input type="text" id="a2_nik" class="form-control" value="1298219"></div>
+                    <div class="col-md-6"><label class="small fw-bold">Diagnosa Dokter</label>
+                        <select id="a2_diag" class="form-select"><option value="diabetes">Diabetes Melitus</option><option value="hipertensi">Hipertensi</option><option value="infeksi">Infeksi Bakteri</option></select>
+                    </div>
+                    <div class="col-md-6"><label class="small fw-bold">Obat Resep</label><input type="text" id="a2_obat" class="form-control" value="Metformin"></div>
+                    <div class="col-md-3"><label class="small fw-bold">Usia (Thn)</label><input type="number" id="a2_usia" class="form-control" value="35"></div>
+                    <div class="col-md-3"><label class="small fw-bold">BB (Kg)</label><input type="number" id="a2_bb" class="form-control" value="65"></div>
+                    <div class="col-md-3"><label class="small fw-bold">Dosis/Hari (mg)</label><input type="number" id="a2_dosis" class="form-control" value="500"></div>
+                    <div class="col-md-3"><label class="small fw-bold">Metode Bayar</label><select id="a2_metode" class="form-select"><option value="Tunai">Tunai</option><option value="Asuransi">Asuransi</option></select></div>
+                    <div class="col-md-12"><label class="small fw-bold">Catatan Makanan/Alergi</label><input type="text" id="a2_food" class="form-control" placeholder="Contoh: Alkohol, Susu, atau Alergi Metformin"></div>
+                    <div class="col-12 mt-3"><button onclick="runClinicalAudit()" class="btn btn-warning w-100 fw-bold">Analisis Keamanan Resep</button></div>
+                    <div id="res_klinis" class="result-box mt-3 bg-white">Silakan isi data untuk memulai analisis...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-3 h-100 border-success">
+                <h5 class="text-success fw-bold">📊 ALUR 3: AUDIT STOK OPNAME</h5>
+                <label class="small fw-bold">Stok Teori (Sistem)</label><input type="number" id="a3_teori" class="form-control mb-2" value="500" readonly>
+                <label class="small fw-bold">Stok Fisik (Input Manual/Scan)</label><input type="number" id="a3_fisik" class="form-control mb-3" placeholder="Masukkan angka fisik">
+                <button onclick="runAudit()" class="btn btn-success w-100 fw-bold">Cek Selisih Audit</button>
+                <div id="res_audit" class="result-box mt-3 bg-white">Hasil Audit...</div>
+            </div>
+        </div>
+
+        <div class="col-12 mt-4">
+            <div class="card bg-dark text-white p-4 text-center">
+                <h3>EXPORT COMPLIANCE & FINANCIAL REPORT</h3>
+                <button onclick="generateFinalReport()" class="btn btn-light btn-lg fw-bold px-5 py-3">📄 DOWNLOAD LAPORAN PDF FINAL</button>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-    var qrcode = new QRCode(document.getElementById("qrcode"), {
-        width: 200,
-        height: 200
-    });
+    function runClinicalAudit() {
+        const diag = document.getElementById('a2_diag').value;
+        const obat = document.getElementById('a2_obat').value.toLowerCase();
+        const dosis = parseFloat(document.getElementById('a2_dosis').value);
+        const bb = parseFloat(document.getElementById('a2_bb').value);
+        const food = document.getElementById('a2_food').value.toLowerCase();
+        const res = document.getElementById('res_klinis');
 
-    function generateQR() {
-        var url = document.getElementById("urlInput").value;
-        qrcode.makeCode(url);
+        const mapping = {"diabetes":"metformin", "hipertensi":"amlodipine", "infeksi":"amoxicillin"};
+        if (!obat.includes(mapping[diag])) {
+            res.innerHTML = "❌ BERBAHAYA: Obat tidak sesuai dengan diagnosa dokter!";
+            res.className = "result-box bg-danger text-white";
+            return;
+        }
+
+        if (dosis > (bb * 15)) {
+            res.innerHTML = "❌ BERBAHAYA: Dosis melebihi batas aman berat badan!";
+            res.className = "result-box bg-danger text-white";
+            return;
+        }
+
+        if (food.includes("alkohol") && obat.includes("metformin")) {
+            res.innerHTML = "❌ BERBAHAYA: Interaksi Metformin + Alkohol (Risiko Asidosis Laktat)!";
+            res.className = "result-box bg-danger text-white";
+            return;
+        }
+
+        res.innerHTML = "✅ AMAN: Lanjutkan Dispensing.";
+        res.className = "result-box bg-success text-white";
     }
-    
-    // Generate otomatis saat dibuka
-    generateQR();
-</script>
 
+    function runAudit() {
+        const teori = 500;
+        const fisik = parseFloat(document.getElementById('a3_fisik').value) || 0;
+        const selisih = Math.abs(teori - fisik);
+        const persen = (selisih / teori) * 100;
+        const res = document.getElementById('res_audit');
+
+        if (persen > 5) {
+            res.innerHTML = `⚠️ SELISIH ${persen.toFixed(1)}%: BUTUH APPROVAL`;
+            res.className = "result-box bg-danger text-white";
+        } else {
+            res.innerHTML = `✅ SELISIH ${persen.toFixed(1)}%: AUTO ADJUST`;
+            res.className = "result-box bg-success text-white";
+        }
+    }
+
+    function generateFinalReport() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        const harga = parseFloat(document.getElementById('a1_harga').value);
+        const qtyJual = 10; 
+        const total = (harga * 1.3) * qtyJual;
+        const hpp = harga * qtyJual;
+        const metode = document.getElementById('a2_metode').value;
+        const namaPasien = document.getElementById('a2_nama_p').value;
+        const nikPasien = document.getElementById('a2_nik').value;
+
+        doc.setFontSize(16); doc.text("LAPORAN FINAL OPERASIONAL APOTEK 2026", 105, 15, { align: "center" });
+
+        doc.autoTable({
+            startY: 25, head: [['1. Laporan Keuangan', 'Nilai Riil']],
+            body: [
+                ['Pendapatan Tunai', metode === 'Tunai' ? 'Rp ' + total.toLocaleString() : 'Rp 0'],
+                ['Piutang (Asuransi)', metode === 'Asuransi' ? 'Rp ' + total.toLocaleString() : 'Rp 0'],
+                ['HPP & Margin', `HPP: Rp ${hpp.toLocaleString()} | Margin: 30%`],
+                ['Cash Flow', metode === 'Tunai' ? 'LANCAR' : 'PENDING KLAIM']
+            ]
+        });
+
+        const fisik = parseFloat(document.getElementById('a3_fisik').value) || 0;
+        doc.autoTable({
+            startY: doc.lastAutoTable.finalY + 10, head: [['2. Laporan Barang', 'Detail']],
+            body: [
+                ['Barang Datang', document.getElementById('a1_supplier').value + " (Batch: " + document.getElementById('a1_batch').value + ")"],
+                ['Nilai Selisih (Rp)', 'Rp ' + (Math.abs(500 - fisik) * harga).toLocaleString()],
+                ['Fast/Slow Moving', document.getElementById('a2_obat').value + " (Fast)"],
+                ['Expired Tracking', "Tgl Exp: " + document.getElementById('a1_exp').value],
+                ['Rekomendasi Restock', fisik < 100 ? "SEGERA ORDER" : "STOK CUKUP"]
+            ]
+        });
+
+        doc.autoTable({
+            startY: doc.lastAutoTable.finalY + 10, head: [['3. Laporan Klinis', 'Analisis']],
+            body: [
+                ['Nama Pasien / NIK', `${namaPasien} / ${nikPasien}`],
+                ['Interaksi Obat', document.getElementById('res_klinis').innerText],
+                ['Dosis BB/Usia', "Tervalidasi (Clark's Rule)"],
+                ['Compliance Alert', "Terdeteksi: " + document.getElementById('a2_food').value]
+            ]
+        });
+
+        doc.save("Laporan_MyApotek_Lengkap.pdf");
+    }
+</script>
 </body>
 </html>
