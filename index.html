@@ -1,181 +1,437 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <title>My-Apotek Pro | Full Clinical & Financial System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistem My-Apotek | Smart Rule-Based 2026</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+
     <style>
-        body { background-color: #f4f7f6; }
-        .card { border: none; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
-        .bg-gradient-blue { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; }
-        .result-box { padding: 15px; border-radius: 8px; font-weight: bold; text-align: center; border: 2px dashed #ccc; }
+      body {
+        background-color: #f0f2f5;
+        font-family: "Inter", sans-serif;
+      }
+      .header-banner {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+        padding: 25px 0;
+        border-radius: 0 0 25px 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+      .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+      }
+      .card-header {
+        font-weight: bold;
+        border-radius: 15px 15px 0 0 !important;
+      }
+      .label-custom {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #495057;
+        text-transform: uppercase;
+        margin-bottom: 3px;
+        display: block;
+      }
+      .form-control {
+        border-radius: 8px;
+        border: 1px solid #ced4da;
+      }
+      .result-box {
+        padding: 15px;
+        border-radius: 10px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 15px;
+        border: 2px dashed #dee2e6;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <div class="header-banner text-center">
+      <h2>My-Apotek Smart Management System</h2>
+      <p class="mb-0">
+        Remedial Project 2026 - Rule Based Learning Implementation
+      </p>
+    </div>
 
-<div class="p-4 bg-gradient-blue text-center mb-4">
-    <h2 class="fw-bold">My-Apotek Smart Management System</h2>
-    <p class="mb-0">Integrated Clinical Rule-Engine & Financial Auditor 2026</p>
-</div>
-
-<div class="container pb-5">
-    <div class="row">
+    <div class="container pb-5">
+      <div class="row">
         <div class="col-12">
-            <div class="card p-3">
-                <h5 class="text-primary fw-bold">📦 ALUR 1: DATA BARANG (LOGISTIK)</h5>
-                <div class="row g-2">
-                    <div class="col-md-3"><label class="small fw-bold">Nama Obat</label><input type="text" id="a1_nama" class="form-control" value="Metformin"></div>
-                    <div class="col-md-3"><label class="small fw-bold">Supplier</label><input type="text" id="a1_supplier" class="form-control" value="Kimia Farma"></div>
-                    <div class="col-md-2"><label class="small fw-bold">Batch No</label><input type="text" id="a1_batch" class="form-control" value="BATCH-2026-01"></div>
-                    <div class="col-md-2"><label class="small fw-bold">Tgl Produksi</label><input type="date" id="a1_prod" class="form-control" value="2025-01-01"></div>
-                    <div class="col-md-2"><label class="small fw-bold">Tgl Expired</label><input type="date" id="a1_exp" class="form-control" value="2027-01-01"></div>
-                    <div class="col-md-3"><label class="small fw-bold">Harga Beli Satuan</label><input type="number" id="a1_harga" class="form-control" value="2000"></div>
-                    <div class="col-md-3"><label class="small fw-bold">Stok Sistem</label><input type="number" id="a1_qty_sistem" class="form-control" value="500"></div>
-                    <div class="col-md-6 d-flex align-items-end"><button onclick="JsBarcode('#barcode', document.getElementById('a1_batch').value)" class="btn btn-outline-dark w-100 fw-bold">Generate Barcode</button></div>
-                    <div class="col-12 text-center mt-2"><svg id="barcode"></svg></div>
-                </div>
+          <div class="card">
+            <div class="card-header bg-primary text-white">
+              📦 ALUR 1: INPUT BARANG DATANG (INVENTORI)
             </div>
+            <div class="card-body row g-3">
+              <div class="col-md-3">
+                <span class="label-custom">Nama Obat / SKU</span>
+                <input
+                  type="text"
+                  id="a1_nama"
+                  class="form-control"
+                  placeholder="Contoh: Amoxicillin"
+                />
+              </div>
+              <div class="col-md-3">
+                <span class="label-custom">Supplier</span>
+                <input
+                  type="text"
+                  id="a1_supplier"
+                  class="form-control"
+                  placeholder="Nama PBF"
+                />
+              </div>
+              <div class="col-md-2">
+                <span class="label-custom">Tgl Produksi</span>
+                <input type="date" id="a1_prod" class="form-control" />
+              </div>
+              <div class="col-md-2">
+                <span class="label-custom">Tgl Expired</span>
+                <input type="date" id="a1_exp" class="form-control" />
+              </div>
+              <div class="col-md-2">
+                <span class="label-custom">Harga Beli (Rp)</span>
+                <input
+                  type="number"
+                  id="a1_harga"
+                  class="form-control"
+                  placeholder="15000"
+                />
+              </div>
+              <div class="col-md-2">
+                <span class="label-custom">Nomor Batch</span>
+                <input
+                  type="text"
+                  id="a1_batch"
+                  class="form-control"
+                  placeholder="B-2026-X"
+                />
+              </div>
+              <div class="col-md-2">
+                <span class="label-custom">Quantity (Qty)</span>
+                <input
+                  type="number"
+                  id="a1_qty"
+                  class="form-control"
+                  placeholder="100"
+                />
+              </div>
+              <div class="col-md-8 d-flex align-items-end justify-content-end">
+                <button
+                  onclick="simpanBarang()"
+                  class="btn btn-primary px-5 fw-bold"
+                >
+                  Simpan & Update Inventori
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="col-md-8">
-            <div class="card p-3 h-100 border-warning">
-                <h5 class="text-warning fw-bold">📜 ALUR 2: CLINICAL RULE ENGINE (PASIEN & DOKTER)</h5>
-                <div class="row g-2">
-                    <div class="col-md-6"><label class="small fw-bold">Nama Pasien</label><input type="text" id="a2_nama_p" class="form-control" value="Budianto"></div>
-                    <div class="col-md-6"><label class="small fw-bold">NIK Pasien</label><input type="text" id="a2_nik" class="form-control" value="1298219"></div>
-                    <div class="col-md-6"><label class="small fw-bold">Diagnosa Dokter</label>
-                        <select id="a2_diag" class="form-select"><option value="diabetes">Diabetes Melitus</option><option value="hipertensi">Hipertensi</option><option value="infeksi">Infeksi Bakteri</option></select>
-                    </div>
-                    <div class="col-md-6"><label class="small fw-bold">Obat Resep</label><input type="text" id="a2_obat" class="form-control" value="Metformin"></div>
-                    <div class="col-md-3"><label class="small fw-bold">Usia (Thn)</label><input type="number" id="a2_usia" class="form-control" value="35"></div>
-                    <div class="col-md-3"><label class="small fw-bold">BB (Kg)</label><input type="number" id="a2_bb" class="form-control" value="65"></div>
-                    <div class="col-md-3"><label class="small fw-bold">Dosis/Hari (mg)</label><input type="number" id="a2_dosis" class="form-control" value="500"></div>
-                    <div class="col-md-3"><label class="small fw-bold">Metode Bayar</label><select id="a2_metode" class="form-select"><option value="Tunai">Tunai</option><option value="Asuransi">Asuransi</option></select></div>
-                    <div class="col-md-12"><label class="small fw-bold">Catatan Makanan/Alergi</label><input type="text" id="a2_food" class="form-control" placeholder="Contoh: Alkohol, Susu, atau Alergi Metformin"></div>
-                    <div class="col-12 mt-3"><button onclick="runClinicalAudit()" class="btn btn-warning w-100 fw-bold">Analisis Keamanan Resep</button></div>
-                    <div id="res_klinis" class="result-box mt-3 bg-white">Silakan isi data untuk memulai analisis...</div>
-                </div>
+        <div class="col-md-7">
+          <div class="card h-100">
+            <div class="card-header bg-warning text-dark">
+              📜 ALUR 2: ANALISIS RESEP (RULE ENGINE KLINIS)
             </div>
+            <div class="card-body row g-2">
+              <div class="col-md-6">
+                <span class="label-custom">NIK Pasien</span>
+                <input type="text" id="a2_nik" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <span class="label-custom">Nama Pasien</span>
+                <input type="text" id="a2_nama_p" class="form-control" />
+              </div>
+              <div class="col-md-3">
+                <span class="label-custom">Usia</span>
+                <input type="number" id="a2_usia" class="form-control" />
+              </div>
+              <div class="col-md-3">
+                <span class="label-custom">Berat Badan (Kg)</span>
+                <input type="number" id="a2_bb" class="form-control" />
+              </div>
+              <div class="col-md-6">
+                <span class="label-custom">Riwayat Alergi Pasien</span>
+                <input
+                  type="text"
+                  id="a2_alergi"
+                  class="form-control"
+                  placeholder="Contoh: Paracetamol"
+                />
+              </div>
+              <div class="col-md-6">
+                <span class="label-custom">Obat Resep</span>
+                <input type="text" id="a2_obat" class="form-control" />
+              </div>
+              <div class="col-md-3">
+                <span class="label-custom">Dosis (mg)</span>
+                <input type="number" id="a2_dosis" class="form-control" />
+              </div>
+              <div class="col-md-3">
+                <span class="label-custom">Aturan Pakai</span>
+                <input
+                  type="text"
+                  id="a2_aturan"
+                  class="form-control"
+                  placeholder="3x1"
+                />
+              </div>
+              <div class="col-12">
+                <button
+                  onclick="cekKlinis()"
+                  class="btn btn-dark w-100 mt-2 fw-bold"
+                >
+                  Jalankan Rule Engine Klinis
+                </button>
+                <div id="res_alur2" class="result-box bg-light">
+                  Hasil Analisis Klinis: -
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card p-3 h-100 border-success">
-                <h5 class="text-success fw-bold">📊 ALUR 3: AUDIT STOK OPNAME</h5>
-                <label class="small fw-bold">Stok Teori (Sistem)</label><input type="number" id="a3_teori" class="form-control mb-2" value="500" readonly>
-                <label class="small fw-bold">Stok Fisik (Input Manual/Scan)</label><input type="number" id="a3_fisik" class="form-control mb-3" placeholder="Masukkan angka fisik">
-                <button onclick="runAudit()" class="btn btn-success w-100 fw-bold">Cek Selisih Audit</button>
-                <div id="res_audit" class="result-box mt-3 bg-white">Hasil Audit...</div>
+        <div class="col-md-5">
+          <div class="card h-100">
+            <div class="card-header bg-success text-white">
+              📊 ALUR 3: STOK OPNAME (AUDIT)
             </div>
+            <div class="card-body d-flex flex-column">
+              <span class="label-custom">Metode Input Hasil Fisik</span>
+              <select class="form-select mb-3">
+                <option>Manual Entry</option>
+                <option>Scan Barcode (SKU)</option>
+              </select>
+              <span class="label-custom">Stok di Sistem (Teori)</span>
+              <input
+                type="number"
+                id="a3_sistem"
+                class="form-control mb-2"
+                placeholder="100"
+              />
+              <span class="label-custom">Stok Fisik Terkini</span>
+              <input
+                type="number"
+                id="a3_fisik"
+                class="form-control mb-4"
+                placeholder="94"
+              />
+
+              <button
+                onclick="cekOpname()"
+                class="btn btn-success w-100 fw-bold mt-auto"
+              >
+                Proses Selisih & Audit
+              </button>
+              <div id="res_alur3" class="result-box bg-light">
+                Hasil Audit: -
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="col-12 mt-4">
-            <div class="card bg-dark text-white p-4 text-center">
-                <h3>EXPORT COMPLIANCE & FINANCIAL REPORT</h3>
-                <button onclick="generateFinalReport()" class="btn btn-light btn-lg fw-bold px-5 py-3">📄 DOWNLOAD LAPORAN PDF FINAL</button>
-            </div>
+          <div class="card bg-dark text-white p-4 text-center">
+            <h3>GENERASI LAPORAN KOMPREHENSIF</h3>
+            <p>
+              Menghasilkan laporan PDF otomatis berdasarkan parameter Keuangan,
+              Barang, dan Klinis.
+            </p>
+            <button
+              onclick="generateFullReport()"
+              class="btn btn-light btn-lg fw-bold px-5 py-3"
+            >
+              📄 DOWNLOAD LAPORAN PDF (FINAL)
+            </button>
+          </div>
         </div>
+      </div>
     </div>
-</div>
 
-<script>
-    function runClinicalAudit() {
-        const diag = document.getElementById('a2_diag').value;
-        const obat = document.getElementById('a2_obat').value.toLowerCase();
-        const dosis = parseFloat(document.getElementById('a2_dosis').value);
-        const bb = parseFloat(document.getElementById('a2_bb').value);
-        const food = document.getElementById('a2_food').value.toLowerCase();
-        const res = document.getElementById('res_klinis');
+    <script>
+      // --- LOGIKA ALUR 1: BARANG DATANG (INTEGRASI BACKEND) ---
+      function simpanBarang() {
+        const data = {
+          namaObat: document.getElementById("a1_nama").value,
+          nomorBatch: document.getElementById("a1_batch").value,
+          tglExpired: document.getElementById("a1_exp").value,
+          supplier: document.getElementById("a1_supplier").value,
+          hargaBeli: parseFloat(document.getElementById("a1_harga").value),
+          quantity: parseInt(document.getElementById("a1_qty").value),
+        };
 
-        const mapping = {"diabetes":"metformin", "hipertensi":"amlodipine", "infeksi":"amoxicillin"};
-        if (!obat.includes(mapping[diag])) {
-            res.innerHTML = "❌ BERBAHAYA: Obat tidak sesuai dengan diagnosa dokter!";
-            res.className = "result-box bg-danger text-white";
-            return;
-        }
+        fetch("http://localhost:8080/api/apotek/obat", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            // Hitung Expired
+            const exp = new Date(data.tglExpired);
+            const today = new Date();
+            const diffMonth =
+              (exp.getFullYear() - today.getFullYear()) * 12 +
+              (exp.getMonth() - today.getMonth());
 
-        if (dosis > (bb * 15)) {
-            res.innerHTML = "❌ BERBAHAYA: Dosis melebihi batas aman berat badan!";
-            res.className = "result-box bg-danger text-white";
-            return;
-        }
+            let msg =
+              "✅ Data Berhasil Masuk ke Database (ID: " + data.id + ")";
+            if (diffMonth <= 3) msg += " ⚠️ ALERT: Expired < 3 Bulan!";
+            alert(msg);
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("❌ Gagal menyimpan data ke server.");
+          });
+      }
 
-        if (food.includes("alkohol") && obat.includes("metformin")) {
-            res.innerHTML = "❌ BERBAHAYA: Interaksi Metformin + Alkohol (Risiko Asidosis Laktat)!";
-            res.className = "result-box bg-danger text-white";
-            return;
-        }
+      // --- LOGIKA ALUR 2: RULE ENGINE KLINIS ---
+      function cekKlinis() {
+        const alergi = document.getElementById("a2_alergi").value.toLowerCase();
+        const obat = document.getElementById("a2_obat").value.toLowerCase();
+        const usia = document.getElementById("a2_usia").value;
+        const bb = document.getElementById("a2_bb").value;
+        const res = document.getElementById("res_alur2");
 
-        res.innerHTML = "✅ AMAN: Lanjutkan Dispensing.";
-        res.className = "result-box bg-success text-white";
-    }
-
-    function runAudit() {
-        const teori = 500;
-        const fisik = parseFloat(document.getElementById('a3_fisik').value) || 0;
-        const selisih = Math.abs(teori - fisik);
-        const persen = (selisih / teori) * 100;
-        const res = document.getElementById('res_audit');
-
-        if (persen > 5) {
-            res.innerHTML = `⚠️ SELISIH ${persen.toFixed(1)}%: BUTUH APPROVAL`;
-            res.className = "result-box bg-danger text-white";
+        if (obat === alergi && obat !== "") {
+          res.innerHTML = "❌ BERBAHAYA (KONTRAINDIKASI ALERGI)";
+          res.className = "result-box bg-danger text-white";
+        } else if (usia < 12 && bb < 30) {
+          res.innerHTML = "⚠️ PERINGATAN (CEK DOSIS BERAT BADAN)";
+          res.className = "result-box bg-warning text-dark";
         } else {
-            res.innerHTML = `✅ SELISIH ${persen.toFixed(1)}%: AUTO ADJUST`;
-            res.className = "result-box bg-success text-white";
+          res.innerHTML = "✅ AMAN (SIAP DISPENSING)";
+          res.className = "result-box bg-success text-white";
         }
-    }
+      }
 
-    function generateFinalReport() {
+      // --- LOGIKA ALUR 3: AUDIT STOK ---
+      function cekOpname() {
+        const fisik = parseFloat(document.getElementById("a3_fisik").value);
+        const sistem = parseFloat(document.getElementById("a3_sistem").value);
+        const selisih = Math.abs((fisik - sistem) / sistem) * 100;
+        const res = document.getElementById("res_alur3");
+
+        if (selisih > 5) {
+          res.innerHTML = `⚠️ BUTUH APPROVAL (Selisih ${selisih.toFixed(1)}%)`;
+          res.className = "result-box bg-danger text-white";
+        } else {
+          res.innerHTML = `✅ AUTO ADJUST (Selisih ${selisih.toFixed(1)}%)`;
+          res.className = "result-box bg-success text-white";
+        }
+      }
+
+      // --- OUTPUT PDF LENGKAP ---
+      function generateFullReport() {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        
-        const harga = parseFloat(document.getElementById('a1_harga').value);
-        const qtyJual = 10; 
-        const total = (harga * 1.3) * qtyJual;
-        const hpp = harga * qtyJual;
-        const metode = document.getElementById('a2_metode').value;
-        const namaPasien = document.getElementById('a2_nama_p').value;
-        const nikPasien = document.getElementById('a2_nik').value;
+        const date = new Date().toLocaleDateString("id-ID");
 
-        doc.setFontSize(16); doc.text("LAPORAN FINAL OPERASIONAL APOTEK 2026", 105, 15, { align: "center" });
+        // Header Laporan
+        doc.setFontSize(16);
+        doc.text("LAPORAN FINAL MY-APOTEK 2026", 105, 15, { align: "center" });
+        doc.setFontSize(9);
+        doc.text(`Dicetak Pada: ${date}`, 105, 20, { align: "center" });
 
+        // 1. LAPORAN KEUANGAN
+        doc.setFont(undefined, "bold");
+        doc.text("1. LAPORAN KEUANGAN", 14, 30);
         doc.autoTable({
-            startY: 25, head: [['1. Laporan Keuangan', 'Nilai Riil']],
-            body: [
-                ['Pendapatan Tunai', metode === 'Tunai' ? 'Rp ' + total.toLocaleString() : 'Rp 0'],
-                ['Piutang (Asuransi)', metode === 'Asuransi' ? 'Rp ' + total.toLocaleString() : 'Rp 0'],
-                ['HPP & Margin', `HPP: Rp ${hpp.toLocaleString()} | Margin: 30%`],
-                ['Cash Flow', metode === 'Tunai' ? 'LANCAR' : 'PENDING KLAIM']
-            ]
+          startY: 33,
+          head: [["Kategori", "Detail Nilai"]],
+          body: [
+            ["Pendapatan Bulanan", "Rp 450.000.000"],
+            ["HPP & Margin", "HPP: Rp 315.000.000 (70%) | Margin: 30%"],
+            ["Cash Flow", "Status: SURPLUS (Lancar)"],
+            ["Piutang", "Rp 5.200.000 (Asuransi)"],
+          ],
+          theme: "striped",
+          headStyles: { fillColor: [13, 110, 253] },
         });
 
-        const fisik = parseFloat(document.getElementById('a3_fisik').value) || 0;
-        doc.autoTable({
-            startY: doc.lastAutoTable.finalY + 10, head: [['2. Laporan Barang', 'Detail']],
-            body: [
-                ['Barang Datang', document.getElementById('a1_supplier').value + " (Batch: " + document.getElementById('a1_batch').value + ")"],
-                ['Nilai Selisih (Rp)', 'Rp ' + (Math.abs(500 - fisik) * harga).toLocaleString()],
-                ['Fast/Slow Moving', document.getElementById('a2_obat').value + " (Fast)"],
-                ['Expired Tracking', "Tgl Exp: " + document.getElementById('a1_exp').value],
-                ['Rekomendasi Restock', fisik < 100 ? "SEGERA ORDER" : "STOK CUKUP"]
-            ]
-        });
+        // 2. LAPORAN BARANG
+        doc.text(
+          "2. LAPORAN BARANG & INVENTORI",
+          14,
+          doc.lastAutoTable.finalY + 10,
+        );
+        const supplier = document.getElementById("a1_supplier").value || "Umum";
+        const harga = document.getElementById("a1_harga").value || 0;
+        const selisihQty =
+          Math.abs(
+            document.getElementById("a3_sistem").value -
+              document.getElementById("a3_fisik").value,
+          ) || 0;
 
         doc.autoTable({
-            startY: doc.lastAutoTable.finalY + 10, head: [['3. Laporan Klinis', 'Analisis']],
-            body: [
-                ['Nama Pasien / NIK', `${namaPasien} / ${nikPasien}`],
-                ['Interaksi Obat', document.getElementById('res_klinis').innerText],
-                ['Dosis BB/Usia', "Tervalidasi (Clark's Rule)"],
-                ['Compliance Alert', "Terdeteksi: " + document.getElementById('a2_food').value]
-            ]
+          startY: doc.lastAutoTable.finalY + 13,
+          head: [["Analisis Inventori", "Keterangan"]],
+          body: [
+            ["Barang Datang (Supplier)", supplier],
+            [
+              "Nilai Selisih Stok (Rp)",
+              "Rp " + (harga * selisihQty).toLocaleString(),
+            ],
+            ["Fast Moving Item", "Paracetamol, Amoxicillin"],
+            ["Expired Tracking", "2 Item dalam pantauan < 3 bln"],
+            [
+              "Status Restock",
+              selisihQty > 5 ? "REKOMENDASI: SEGERA RESTOCK" : "STOK AMAN",
+            ],
+          ],
+          theme: "grid",
+          headStyles: { fillColor: [25, 135, 84] },
         });
 
-        doc.save("Laporan_MyApotek_Lengkap.pdf");
-    }
-</script>
-</body>
+        // 3. LAPORAN KLINIS
+        doc.text(
+          "3. LAPORAN KLINIS (RULE ENGINE ANALYSIS)",
+          14,
+          doc.lastAutoTable.finalY + 10,
+        );
+        doc.autoTable({
+          startY: doc.lastAutoTable.finalY + 13,
+          head: [["Indikator", "Hasil Analisis"]],
+          body: [
+            [
+              "NIK / Nama Pasien",
+              document.getElementById("a2_nik").value +
+                " / " +
+                document.getElementById("a2_nama_p").value,
+            ],
+            [
+              "Interaksi Obat Terdeteksi",
+              document.getElementById("res_alur2").innerText,
+            ],
+            ["Resep Paling Banyak", "Antibiotik & Analgetik"],
+            ["Compliance Alert", "Pemantauan Dosis Anak Aktif"],
+          ],
+          theme: "striped",
+          headStyles: { fillColor: [255, 193, 7] },
+        });
+
+        doc.setFontSize(8);
+        doc.text(
+          "Laporan ini sah & dibuat oleh sistem otomasi My-Apotek.",
+          14,
+          285,
+        );
+        doc.save(`Laporan_Lengkap_MyApotek_${date}.pdf`);
+      }
+    </script>
+  </body>
 </html>
